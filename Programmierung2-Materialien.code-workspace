@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"markdown.marp.themes": [
-			"./htw.css"
+			"./Folien/htw.css"
 		]
 	}
 }
