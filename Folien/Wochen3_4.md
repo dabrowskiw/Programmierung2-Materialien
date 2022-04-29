@@ -77,16 +77,73 @@ public class State extends Kunstwerk {
 public class Bild extends Kunstwerk {
   public LinkedList<String> farben;
 }
-meinBild = new Bild();
+Bild meinBild = new Bild();
 meinBild.alter = 15; // Geht, denn Bild kann alles, was Kunstwerk kann
 meinBild.material="Oel auf Leinen"; // Geht nicht, das kann nur Statue!
 ```
 
 ---
 
-# Auflösung
+# Auflösung von Attributen und Methoden
 
-* Mehrfachvererbung
+Von der konkreten zur allgemeinen Klasse. Hier wird erst in `Bild` geschaut: Hat `farben` -> wird verwendet
+```java
+Bild meinBild = new Bild(); // Bild extends Kunstwerk, Bild hat farben
+meinBild.farben.add("Rot");
+```
+
+Sonst werden der Reihenfolge nach die Eltern gefragt, bis jemand es hat. Hier hat `Bild` es nicht, also wird bei `Kunstwerk` geschaut -> Treffer
+
+```java
+Bild meinBild = new Bild(); // Kunstwerk hat alter, Bild nicht
+meinBild.alter = 15;
+```
+
+---
+
+# Überschreiben
+
+Das bedeutet, Kinder können sich anders verhalten, als Eltern!
+
+```java
+public class Uhr {
+  public String tick() { return "Tick, tock"; }
+}
+public class Turmuhr extends Uhr {
+  public String tick() { return "TICK! TOCK!"; }
+}
+Uhr swatch = new Uhr();
+System.out.println(swatch.tick()); // Tick, tock
+Turmuhr bigBen = new Turmuhr();
+System.out.println(bigBen.tick()); // TICK! TOCK!
+```
+
+---
+
+# Wer bin ich eigentlich?
+
+Überprüfung, was die Klasse eines Objekts ist, mit `instanceof`:
+
+```java
+public class Uhr {
+  public String tick() { return "Weiß ich nicht :("; }
+}
+public class Turmuhr extends Uhr {
+  public String tick() { return "TICK! TOCK!"; }
+}
+public class Armbanduhr extends Uhr {
+  public String tick() { return "Ticketacke."; }
+}
+Turmuhr bigBen = new Turmuhr();
+boolean isTurmuhr = bigBen instanceof Turmuhr; // true
+boolean isUhr = bigBen instanceof Uhr; // true
+boolean isArmbanduhr = bigBen instanceof Armbanduhr; // false
+```
+
+
+---
+
+# Abstrakte Klassen
 
 ---
 
@@ -94,9 +151,6 @@ meinBild.material="Oel auf Leinen"; // Geht nicht, das kann nur Statue!
 
 ---
 
-# Abstrakte Klassen
-
----
 
 # Exceptions
 
