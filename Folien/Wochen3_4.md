@@ -140,20 +140,119 @@ boolean isUhr = bigBen instanceof Uhr; // true
 boolean isArmbanduhr = bigBen instanceof Armbanduhr; // false
 ```
 
-
 ---
-
-# Abstrakte Klassen
-
----
-
-# Interfaces
-
----
-
 
 # Exceptions
+
+* Eine der Verwendungen in Java: Exception handling
+* Bisher: Rückgabe von "Signalwerten":
+
+```java
+public int getNumberOfLetters(String text) {
+  if(text == null) { // Dann kann keine Buchstabenzahl bestimmt werden
+    return -1; // Fehlerwert
+  }
+  return text.length();
+}
+String text = getInputFromUser();
+int letters = getNumberOfLetters(text);
+if(letters == -1) {
+  System.out.println("Etwas ist bei der Eingabe schief gelaufen!");
+}
+```
+
+---
+
+# Exceptions (II)
+
+Fehlerwerte gehen aber nicht immer:
+
+```java
+public int getLetterDiff(String text1, String text2) {
+  return text1.length() - text2.length(); 
+}
+```
+
+* Problem: Alle Werte könnten richtige Ergebnisse sein
+* Lösung: Zusätzlicher Informationskanal: Exception
+
+---
+
+# Exceptions (III)
+
+Exception wikt wie "sofort `return`, bis zum nächsten passenden `catch`"
+
+```java
+public int getLetterDiff(String text1, String text2) throws Exception {
+  if(text1 == null || text2 == null) {
+    throw new Exception("Keiner der Texte darf null sein!");
+  } 
+  return text1.length() - text2.length(); 
+}
+String text = getUserInput();
+try {
+  int diff = getLetterDiff(text, "Referenzwort");
+} catch(Exception e) {
+  System.out.println("Etwas ist bei der Eingabe schief gelaufen");
+}
+```
+
+---
+
+# Exceptions (IV)
+
+Einige Formalitäten bei Exceptions:
+
+* Exception, die es aus der `main()` raus schafft, führt zum Programmabbruch
+* Alle Exceptions erben von der `Exception`-Klasse
+* Wenn eine Exception geworfen wird, muss sie
+  * entweder mit `catch` gefangen werden
+  * oder mit `throws` im Methodenkopf deklariert werden (und von der aufrufenden Methode gefangen/deklariert werden)
+  * Ausnahme: Von `RuntimeException` ableitende Exceptions
+
+---
+
+# Arbeiten mit Exceptions: Codefluss
+
+Exceptions erlauben, bei Fehlern direkt zur Fehlerbehandlung zu springen
+
+```java
+public int getLengthSum(String[]][] values) {
+  int lengthSum = 0;
+  try {
+    for(int i=0; i<values.length; i++) {
+      for(int j=0; j<values[i].length; j++) {
+        lengthSum += values[i][j].length();
+      }
+    }
+  } catch(NullPointerException e) {
+    // Fehlerbehandlung, egal wo oben die Exception geflogen ist - ohne 
+    // boolean flags und viele "if(error) break"
+  }
+}
+```
+
+---
+
+# Arbeiten mit Exceptions: Fehlertypen
+
+Unteschiedliche Fehlerursachen können unterschiedliche Fehlermeldungen und/oder unterschiedliche Fehlergbehandlung benötigen - catch ist hier wie `instanceof` für die Exception:
+```java
+public String readData(String filename) 
+                    throws FileNotFoundException, FileFormatException { ... }
+
+try {
+  readData("inputfile.txt");
+} catch(FileNotFoundException e) {
+  System.out.println("Datei wurde nicht gefunden");
+}  catch(FileFormatException e) {
+  System.out.println("Fehler im Dateiformat:" + e.getMessage());
+}
+```
 
 ---
 
 # Typisierte Klassen
+
+And now for something completely different...
+
