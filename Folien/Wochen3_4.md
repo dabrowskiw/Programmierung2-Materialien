@@ -54,8 +54,8 @@ void isValid_doesNotExist() {
 # Vererbung: Motivation
 
 * Häufiges Problem bei größeren Programmen: Ähnliche, aber nicht ganz identische Dinge (z.B. "Statue" und "Bild"):
-  * Statue braucht Künstler, Alter und Material
-  * Bild braucht Künstler, Alter und verwendete Farben
+  * Statue braucht Künstler, Preis und Material
+  * Bild braucht Künstler, Preis und verwendete Farben
 * Zwei offensichtliche Lösungen:
   * Alles in eine Klasse packen - aber diese Klasse wird riesig
   * Separate Klassen - aber viel Code wird identsich sein
@@ -68,17 +68,17 @@ void isValid_doesNotExist() {
 ```java
 public class Kunstwerk {
   public String kuenstler;
-  public int alter;
-  public String printDescription() { return alter+"Jahre altes Kunstwerk"; }
+  public int price;
+  public String printDescription() { return price+"€ teures Kunstwerk"; }
 }
-public class State extends Kunstwerk {
+public class Statue extends Kunstwerk {
   public String material;
 }
 public class Bild extends Kunstwerk {
   public LinkedList<String> farben;
 }
 Bild meinBild = new Bild();
-meinBild.alter = 15; // Geht, denn Bild kann alles, was Kunstwerk kann
+meinBild.price = 15000; // Geht, denn Bild kann alles, was Kunstwerk kann
 meinBild.material="Oel auf Leinen"; // Geht nicht, das kann nur Statue!
 ```
 
@@ -95,8 +95,8 @@ meinBild.farben.add("Rot");
 Sonst werden der Reihenfolge nach die Eltern gefragt, bis jemand es hat. Hier hat `Bild` es nicht, also wird bei `Kunstwerk` geschaut -> Treffer
 
 ```java
-Bild meinBild = new Bild(); // Kunstwerk hat alter, Bild nicht
-meinBild.alter = 15;
+Bild meinBild = new Bild(); // Kunstwerk hat price, Bild nicht
+meinBild.price = 15000;
 ```
 
 ---
@@ -254,5 +254,56 @@ try {
 
 # Typisierte Klassen
 
-And now for something completely different...
+Andere Nutzung von Objektorientierung: Typensicherheit bei Collections
 
+* Bereits bekannt aus `LinkedList<String>` etc.
+* Alles ist ein `Object` -> `LinkedList` kann beliebige Objekte halten
+* Aber unklare Typisierung ist potenzielle Fehlerquelle
+```java
+LinkedList myList = new LinkedList();
+myList.add(new String("Das ist ein Text"));
+myList.add(new Double(5.0));
+String text = (String)(myList.get(1)); // Fehler! myList.get(1) ist Double!
+```
+
+* Typisierte Klassen legen verwaltete Klasse fest -> Fehler unmöglich.
+
+---
+
+# Typisierte Klassen (II)
+
+Typisierte Klassen kann man selber schreiben:
+```java
+public class KunstKollektion<T> {
+  private LinkedList<T> objects = new LinkedList<T>();
+  public void addObject(T exponat) { objects.add(exponat); }
+  public T getObject(int num) { return objects.get(num); }
+}
+KunstKollektion<Bild> bildKollektion = new KunstKollektion<Bild>();
+bildKollektion.addObject(new Bild()); // geht
+bildKollektion.addObject(new Statue()); // geht nicht!
+```
+
+...aber was, wenn man Kunstwerk-spezifische Dinge tun will?
+
+---
+
+# Typisierte Klassen (III)
+
+```java
+public class KunstKollektion<T extends Kunstwerk> {
+  private LinkedList<T> objects = new LinkedList<T>();
+  public void addObject(T exponat) { objects.add(exponat); }
+  public T getObject(int num) { return objects.get(num); }
+  public int getTotalPrice() {
+	int res = 0;
+    for(Kunstwerk k : objects) { // geht, weil T ein Kunstwerk sein muss
+      res += k.price;	
+    }
+    return res;
+  }
+}
+KunstKollektion<Statue> bildKollektion = new KunstKollektion<Statue>();
+bildKollektion.addObject(new Statue()); // geht
+int totalPrice = bildKollektion.getTotalPrice();
+```
