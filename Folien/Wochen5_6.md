@@ -135,3 +135,37 @@ public class UhrenKunstwerk extends Kunstwerk implements Uhr {
 UhrenKunstwerk dalliStatue = new UhrenKunstwerk();
 Uhr tolleUhr = (Uhr) dalliStatue; // geht, denn UhrenKustwert ist auch Uhr
 ```
+
+---
+
+![bg left:48%](Bilder/swing.jpg)
+
+# GUI in Java: Swing
+
+* Hierarchisch aufgebautes GUI
+* Starke Nutzung von Vererbung
+  * JComponent ist Container
+  * JComponents können JComponents enthalten
+  * Spezifische Logik (z.B. Klickverhalten) in tieferen Klassen
+* Top-level-Container: JFrame
+
+---
+
+# GUI in Java: Layout
+
+* Hierarchischer Aufbau z.B. "`JFrame` enthält 5 `JButton`"
+* Wie genau darstellen? -> Wird von `LyoutManager` entschieden
+* Drei Beispiele für gleiche Hierarchie, anderer `LayoutManager`:
+
+![BoxLayout height:200](Bilder/BoxLayoutDemo.png) ![GridBagLayout height:200](Bilder/GridBagLayoutDemo.png) ![BorderLayout height:200](Bilder/BorderLayoutDemo.png)
+
+---
+
+# GUI in Java: Live-Demo
+
+* Kurzes Beispiel:
+  * JFrame aus `main()` heraus anzeigen
+  * Einfacher GUI-Aufbau:
+    * Menuleiste erstellen
+    * 4 unterschiedliche `LayoutManager`
+* Nachzuvollziehen im [git-Repo](https://github.com/dabrowskiw/Programmierung2-Materialien/tree/master/Examples/GUIBasics)
