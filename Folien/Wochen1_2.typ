@@ -183,16 +183,17 @@ tasks.named('test') { useJUnitPlatform() }
 == Verwendung von Paketen
 
 - Paketname = Ordnername, `.` statt `/`
-- Muss als `package` deklariert sein (Ordner=Paketname)
-- Klassen können nach Paketname importiert werden - außer Klassen im Default-Paket `/`!
+- Muss als `package` deklariert sein 
+  - Ordnername muss identisch mit dem Paketnamen sein
+  - Ähnlich: Klassenname muss identisch mit Dateiname sein
+  - Name "Umgekehrt" zu Web-URL: `tld.Organisation.Details`
 - Alle Klassen aus dem selben Paket sind implizit importiert
 
 #figure(
   sourcecode[```java
   package org.htw.prog2ikg;
-  import org.htw.ekgbeispiele.EkgKlasse;
 
-  protected class PackageExample {
+  public class PackageExample {
   //...
   }
   ```],
@@ -205,6 +206,37 @@ tasks.named('test') { useJUnitPlatform() }
     - Ordnername = Paketname
   - Wo liegt der Ordner mit den ganzen Paketordnern? Definiert über Gradle-Konfiguration.
 ]
+
+== Verwendung von Paketen (II)
+
+- Klassen können aus Paketen importiert werden (alle mit `*`)
+- Kein Import aus `default`-Paket (ohne Unterordner) möglich!
+- Bei Namenskollision: Paketname mit angeben ("fqn")
+
+#figure(
+  sourcecode[```java
+  import org.htw.prog2ikg.Aufgabe0;
+  import org.htw.ekg.*;
+
+  public class PackageExample {
+    public void mymethod() {
+      org.htw.ekg.Aufgabe0 = new org.htw.ekg.Aufgabe0();
+    }
+  }
+  ```],
+  caption: [Beispiel für Importe und Verwendung von fully qualified name.]
+)
+
+== Externe Pakete
+
+- Fremder Code als "Bibliothek" einbindbar
+- Konfiguration über gradle als dependency
+- Viele Quellen, häufig: #link("https://mvnrepository.com/", [Maven])
+- Beispiel: #link("https://mvnrepository.com/artifact/org.knowm.xchart/xchart", [XChart])
+  - Bei Maven finden
+  - Version aussuchen
+  - Gradle-Konfiguration übernehmen
+  - #link("https://knowm.org/open-source/xchart/xchart-example-code/", [Codebeispiele]) von der Homepage und #link("https://javadoc.io/doc/org.knowm.xchart/xchart/latest/index.html", [JavaDoc]) als Startpunkte
 
 
 == Literatur
