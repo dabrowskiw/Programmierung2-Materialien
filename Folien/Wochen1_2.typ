@@ -80,6 +80,23 @@
   caption: [Gradle-Übersicht @gradleDeclaringManaging]
 )
 
+#speaker-note[
+  - Ablauf Sourcecode -> Programm:
+    - Sources finden
+    - Dependencies (build-time) finden und laden
+    - Programm bauen
+  - Ablauf Ausführung:
+    - Dependencies (run-time) finden und laden
+    - Hauptklasse finden und ausführen
+  - Gradle:
+    - Automatischer Download Dependencies
+    - Ordner alle richtig setzen
+    - Richtige Parameter für Compilieren und Ausführen
+    - Unterschiedliche Parametersätze für Aufgaben:
+      - Bauen für diverse Zielsysteme, Ausführen, Tests...
+      - Vordefinierte Parametersätze über Plugins
+]
+
 == Gradle-Beispiel: Erste Aufgabe
 
 #sourcecode[```groovy
@@ -96,9 +113,99 @@ java {
 }
 application { mainClass = 'org.htw....MyProject' }
 tasks.named('test') { useJUnitPlatform() }
-
 ```
 ]
+
+#speaker-note[
+  - Einzelne Bereiche erklären:
+    - Herkunft der Abhängigkeiten
+    - Externe Abhängigkeiten für Bauen und Laufzeit
+    - XChart: Plot darstellen
+    - Mindest-Sprachversion definieren
+    - Hauptklasse (z.B. falls mehrere main-Methoden)
+    - Spezielle Aufgaben definieren, hier test, können aber auch build-Ziele etc. sein
+  - Komplexe Konfigurationen möglich, hoher Automatisierungsgrad z.B. für code-checks, Deployment...
+]
+
+== Git: Kurz-Recap 1. Semester
+
+- Sourcecode-Verwaltung: Versionierte Zwischenstände, Sicherung etc.
+- Recap - siehe EKG, Quellen hier oder Youtube-Tutorials
+- Unterstützung insbesondere in der 1. Übung, danach Voraussetzung - auch im Arbeitsleben!
+
+#figure(
+  image("Bilder/gitoverview.png", width: 100%),
+  caption: [Überblick über den git-workflow @gitoverview]
+)
+
+== Git: Arbeiten im Team 
+
+#figure(
+  image("Bilder/gitteam.png", width: 100%),
+  caption: [Gemeinsames Arbeiten an einem git-Repository @gitteam]
+)
+
+#speaker-note[
+  - Verteiltes Arbeiten: Jeder eigenes lokales Repo, Synchronisation über zentrales Repo
+  - Aber: Alle müssen Schreibzugriff auf zentrales Repo haben!
+  - Hier nicht der Fall, daher Alternative nötig
+]
+
+== Git fork
+
+#figure(
+  image("Bilder/gitfork.png", height: 95%),
+  caption: [Team-Workflow mit forking @gitfork]
+)
+
+#speaker-note[
+  - Forks: Komplette, remote-Kopie - wie git clone, aber remote
+  - Forkende Person hat volle Schreibrechte auf Fork!
+  - Zurückspielen von Änderungen in Original-Repo: 
+    - Pull Request (bitte übernimm meine Änderungen)
+    - Bei Hausaufgaben Pull Requests nicht nötig
+    - Abgaben nicht mehr lokal, sondern Fork, den ich clonen kann!
+]
+
+= Java Packages
+
+== Motivation
+
+- Java Class Library enthält über 4000 Klassen
+- Organisation in hierarchischen Paketen
+  - Thematisch zusammenhängende Klassen im selben Paket
+  - Verhinderung von Namenskollisionen, z.B.:
+    - `java.util.List`: Datentyp "Liste"
+    - `java.awt.List`: Graphische Komponente zur Darstellung einer Auswahlliste
+  - Erlaubt access modifier `protected`: Nur für Klassen im selben Paket verfügbar ("zwischen" `public` und `private`)
+- Eigene Klassen in eigenen Paketen verhindern Kollisionen zwischen unterschiedlichen Projekten
+
+== Verwendung von Paketen
+
+- Paketname = Ordnername, `.` statt `/`
+- Muss als `package` deklariert sein (Ordner=Paketname)
+- Klassen können nach Paketname importiert werden - außer Klassen im Default-Paket `/`!
+- Alle Klassen aus dem selben Paket sind implizit importiert
+
+#figure(
+  sourcecode[```java
+  package org.htw.prog2ikg;
+  import org.htw.ekgbeispiele.EkgKlasse;
+
+  protected class PackageExample {
+  //...
+  }
+  ```],
+  caption: [Beispiel für eine Java-Datei `org/htw/prog2ikg/PackgeExample.java`]
+)
+
+#speaker-note[
+  - Anforderung wie bei Klassennamen!
+    - Dateiname = Klassenname
+    - Ordnername = Paketname
+  - Wo liegt der Ordner mit den ganzen Paketordnern? Definiert über Gradle-Konfiguration.
+]
+
 
 == Literatur
 
