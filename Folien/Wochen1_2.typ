@@ -227,14 +227,58 @@ tasks.named('test') { useJUnitPlatform() }
   caption: [Beispiel für Importe und Verwendung von fully qualified name.]
 )
 
+== Verwendung externer Pakete: JAR-Dateien
+
+#slide(composer: (3fr, 2fr))[
+  - Java Archive File: Teilen von Java-Programmen und -Bibliotheken
+  - Zip-Datei mit festgelegter Struktur
+  - Metadaten
+    - Version, Main-Klasse, Classpath
+    - Optional: Signaturen
+  - Kompilierter Java-Code (.class)
+  - Optional: 
+    - Abhängigkeiten (lib, "fat jar")
+    - Resourcen (Konfiguration, Icons etc.)
+    - Weitere beliebige Ordner (Bilder, Dokumentation etc.)
+][
+#{
+  set text(size: 16pt)
+figure(
+  sourcecode[```text
+MyApplication.jar 
+	├── META-INF/ 
+	│	└── MANIFEST.MF 
+	│ 	└── signatures/ 
+	│   	├── MyApp.SF 
+	│	    └── MyApp.DSA 
+	├── com/ 
+	│ └── example/ 
+	│		├── Main.class 
+	│		├── File2.class
+	│		└── utils/ 
+	│	 		  └── Helper.class 
+	├── lib
+	│	├── dependency1.jar
+  │	└── dependency2.jar
+	├── resources/ 
+	│ 	└── configuration.xml 
+	└── images/ 
+	  	└── logo.png 
+```],
+  caption: [Beispiel-Struktur einer JAR-Datei]
+)
+}
+]
+
 == Externe Pakete
 
 - Fremder Code als "Bibliothek" einbindbar
 - Konfiguration über gradle als dependency
-- Viele Quellen, häufig: #link("https://mvnrepository.com/", [Maven])
+- Viele Quellen, häufig: #link("https://mvnrepository.com/", [Maven Repository])
 - Beispiel: #link("https://mvnrepository.com/artifact/org.knowm.xchart/xchart", [XChart])
-  - Bei Maven finden
+  - Beim Maven Repository finden
   - Version aussuchen
+  - Jar-Datei runterladen, anschauen: Manifest, pom, decompiled class
   - Gradle-Konfiguration übernehmen
   - #link("https://knowm.org/open-source/xchart/xchart-example-code/", [Codebeispiele]) von der Homepage und #link("https://javadoc.io/doc/org.knowm.xchart/xchart/latest/index.html", [JavaDoc]) als Startpunkte
 
