@@ -123,7 +123,6 @@ public class JavaProgrammer extends Programmer {
     }
   ```]
 ][
-  #only(2)[
     #sourcecode[```java
       public class MyClass {
         public static void main(
@@ -136,10 +135,11 @@ public class JavaProgrammer extends Programmer {
         }
       }
     ```]
-  ]
-
+  #only(2)[
   - Was wird ausgegeben?
   - Was wird in welcher Reihenfolge aufgerufen?
+  ]
+
 ]
 
 == Beispiel Point-Klasse
@@ -169,7 +169,6 @@ public class JavaProgrammer extends Programmer {
     }
   ```]
 ][
-  #only(2)[
     #sourcecode[```java
     public class MyClass {
       public static void main(
@@ -183,10 +182,11 @@ public class JavaProgrammer extends Programmer {
       }
     }
     ```]
-  ]
-
+  #only(2)[
   - Was wird ausgegeben?
   - Was wird in welcher Reihenfolge aufgerufen?
+  ]
+
 ]
 
 == Vererbung mit Methoden
@@ -213,7 +213,6 @@ public class JavaProgrammer extends Programmer {
   }
   ```]
 ][
-  #only(2)[
     #sourcecode[```java
     public class MyClass {
       public static void main(
@@ -225,10 +224,11 @@ public class JavaProgrammer extends Programmer {
       }
     }
     ```]
-  ]
 
+  #only(2)[
   - Was wird ausgegeben?
   - Was wird warum aufgerufen?
+  ]
 ]
 
 == Überschreiben von Methoden
@@ -543,7 +543,7 @@ Vorsicht bei Überschreiben vererbter Methoden:
 
 #pause
 
-Aber warum sollte man das tun? "This element is not supposed to change, and if you want to change it, you haven't understood the existing design." 
+Aber warum sollte man das tun? #pause "This element is not supposed to change, and if you want to change it, you haven't understood the existing design." 
 
 == Beispiel für `final`: Template-Pattern
 
