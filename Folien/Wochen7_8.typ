@@ -392,13 +392,12 @@ Der Vollständigkeit halber: Der `JFrame`
   image("Bilder/win_buf1.png")
 )
 
-== Randnotiz: RGB
-
+== paintComponent mit super-Aufruf 
 
 #grid(
   columns: (5fr, 1fr),
   gutter: 0.5em,
-  [ #codly(highlighted-lines: (5, 14, 15, 16))
+  [ #only(1)[#codly(highlighted-lines: (5, 14, 15, 16))]
     ```java
     private class ImagePanel extends JPanel {
       private BufferedImage buf;
@@ -422,8 +421,12 @@ Der Vollständigkeit halber: Der `JFrame`
       }
     }
     ```],
-  [#image("Bilder/win_buf2.png")
-  ...Button?]
+  [
+    #only(1)[#image("Bilder/win_buf2.png")
+  ...Button? Zusammen.]
+    #only(2)[#image("Bilder/win_buf3.png")
+  Schaffen wir auch den?]
+  ]
 )
 
 = Nützliche Design Patterns
