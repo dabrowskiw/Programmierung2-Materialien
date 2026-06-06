@@ -392,7 +392,7 @@ Der Vollständigkeit halber: Der `JFrame`
   image("Bilder/win_buf1.png")
 )
 
-== paintComponent mit super-Aufruf 
+== Randnotiz: RGB
 
 #grid(
   columns: (5fr, 1fr),
@@ -425,7 +425,7 @@ Der Vollständigkeit halber: Der `JFrame`
     #only(1)[#image("Bilder/win_buf2.png")
   ...Button? Zusammen.]
     #only(2)[#image("Bilder/win_buf3.png")
-  Schaffen wir auch den?]
+  Schaffen wir auch den mit `super`?]
   ]
 )
 
